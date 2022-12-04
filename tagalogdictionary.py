@@ -9,49 +9,41 @@ from bs4 import BeautifulSoup
 
 header = {'user-agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36'}
 letters = list(string.ascii_lowercase)
-letter_index = 0
-
 
 def main():
-    pageNum=forLast()
-    page_index = 1
-    with open('tagalog_wordlist.txt','w')as f:
-        while page_index<=pageNum:
+
+    page_index = 87
+    letter_index = 0  
+
+    with open('tagalog_wordlist.txt','wt')as f:
+        while True:
             try:
                 configuredurl = 'http://tagalog.pinoydictionary.com/list/' + letters[letter_index] + '/' + str(page_index) + '/'
                 req = requests.get(url=configuredurl,headers=header)
                 wordsoup = bs4.BeautifulSoup(req.text,'lxml')
             except Exception as e:
                 print(e)
+                break
 
             print('Extracting from', configuredurl)
             
+            if(wordsoup.find_all(class_="page-not-found")):
+                page_index=1
+                letter_index+=1
+                continue
+        
             try:
                 for h2 in wordsoup.find_all(class_="word-entry"):
                     atags=h2.find_all('a')
                     for words in atags:
                         tagalogword = words.text
-                        f.write(tagalogword+"\n")
                         print(tagalogword)
+                        f.write(tagalogword+"\n")
             except Exception as e:
                 print(e)
             
             page_index+=1
         
-def forLast():
-    try:
-        siteurl = 'http://tagalog.pinoydictionary.com/list/' + letters[letter_index] + '/'
-        r = requests.get(url=siteurl,headers=header)
-        soup = bs4.BeautifulSoup(r.text,'lxml')
-        num = soup.find('a',{'title':'Last Page'})['href']
-        lastPage = int(re.sub(r'[\W_]+', '', num)[-2:])
-        print(lastPage)
-        return lastPage
-    except Exception as e:
-        print(e)
 
 if __name__ == '__main__':
     main()
-        
-#format files para mas paspas pag paste sa ts file
-#dle similar ang words na naa 

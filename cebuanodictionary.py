@@ -12,7 +12,7 @@ letters = list(string.ascii_lowercase)
 
 def main():
 
-    page_index = 87
+    page_index = 1
     letter_index = 0  
 
     with open('cebuano_wordlist.txt','wt')as f:

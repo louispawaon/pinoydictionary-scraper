@@ -4,13 +4,14 @@
 
 import string
 
+
 # Open the file in read mode
-with open('file.txt', 'r') as file:
+with open('cebuano_wordlist.txt', 'r') as file:
   # Read all the lines in the file into a list
   lines = file.readlines()
 
 # Open the file in write mode
-with open('file.txt', 'w') as file:
+with open('cebuano_wordlist.txt', 'w') as file:
   # Iterate over the lines in the list
   for line in lines:
     # Make all letters lowercase
@@ -21,9 +22,8 @@ with open('file.txt', 'w') as file:
     line = ''.join(c for c in line if c.isalnum())
     # Split the line into words
     words = line.split()
-    # Remove any duplicate words
-    words = list(set(words))
     # Join the words back into a single string
     line = ' '.join(words)
     # Write the modified line to the file
     file.write(line + '\n')
+

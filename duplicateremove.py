@@ -19,7 +19,7 @@ def remove_duplicate_words(filename):
     with open(filename, 'w') as f:
         # Write all the unique words to the file
         for word in unique_words:
-            f.write(word + '\n')
+            f.write('"'+word+'",'+ '\n')
 
 # Test the function
 remove_duplicate_words('tagalog_wordlist.txt')

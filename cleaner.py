@@ -6,7 +6,7 @@ import string
 
 
 # Open the file in read mode
-with open('cebuano_wordlist.txt', 'r') as file:
+with open('tagalog_wordlist.txt', 'r') as file:
   # Read all the lines in the file into a list
   lines = file.readlines()
 
